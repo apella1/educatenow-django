@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from .models import Room
 
 rooms = [
     {'id':1, 'name': 'Open Source Contribution Guidelines'},
@@ -10,10 +11,11 @@ rooms = [
 # using function based views 
 
 def home(request):
+    rooms = Room.objects.all()
     context = {'rooms': rooms}
     return render(request, 'base/home.html', context)
 
-def room(request, pk):
+def room_view(request, pk):
     room = None
     for i in rooms:
         if i['id'] == int(pk):
