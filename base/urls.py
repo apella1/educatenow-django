@@ -4,9 +4,11 @@ from . import views
 # adding dynamic routing to the room view
 
 urlpatterns = [
+    path('login', views.login_view, name='login'),
+    path('logout', views.logout_user, name='logout'),
     path('', views.home, name='home'),
     path('room/<str:pk>/', views.room_view, name='room'),
     path('create-room', views.create_room, name='create-room'),
     path('update-room/<str:pk>/', views.update_room, name='update-room'),
-    path('delete-rodom/<str:pk>/', views.delete_room, name='delete-room'),
+    path('delete-room/<str:pk>/', views.delete_room, name='delete-room'),
 ]
