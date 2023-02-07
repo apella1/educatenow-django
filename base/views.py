@@ -11,6 +11,20 @@ from .forms import RoomForm, MessageForm
 
 # using function based views
 
+# user profile view
+
+
+def user_profile(request, pk):
+    user = User.objects.get(id=pk)
+    # getting children of the room object
+    rooms = user.room_set.all()
+    comments = user.message_set.all()
+    topics = Topic.objects.all()
+    context = {'user': user, 'rooms': rooms,
+               'comments': comments, 'topics': topics}
+
+    return render(request, 'base/user_profile.html', context)
+
 
 def login_view(request):
     page = 'login'
@@ -80,7 +94,9 @@ def home(request):
     )
     topics = Topic.objects.all()
     room_count = rooms.count()
-    comments = Message.objects.all()
+
+    # showcasing messages related to a specific search query
+    comments = Message.objects.filter(Q(room__topic__name__icontains=q))
     context = {'rooms': rooms, 'topics': topics,
                'room_count': room_count, 'comments': comments}
     return render(request, 'base/home.html', context)
