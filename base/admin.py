@@ -1,3 +1,4 @@
+"""Registering models using django.contrib.admin"""
 from django.contrib import admin
 
 # Register your models here.
