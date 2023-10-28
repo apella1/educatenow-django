@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
+import os
 from pathlib import Path
 
 import django_on_heroku
@@ -77,16 +78,19 @@ WSGI_APPLICATION = "educate.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": config("DB_NAME"),
-        "HOST": config("DB_HOST"),
-        "PORT": config("DB_PORT"),
-        "USER": config("DB_USER"),
-        "PASSWORD": config("DB_PASSWORD"),
+ENVIRONMENT = os.environ.get("ENVIRONMENT", "development")
+
+if ENVIRONMENT == "development":
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": config("DB_NAME"),
+            "HOST": config("DB_HOST"),
+            "PORT": config("DB_PORT"),
+            "USER": config("DB_USER"),
+            "PASSWORD": config("DB_PASSWORD"),
+        }
     }
-}
 
 
 # Password validation
