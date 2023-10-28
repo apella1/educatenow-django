@@ -10,5 +10,6 @@ class BaseConfig(AppConfig):
     Args:
         AppConfig (_type_): _description_
     """
-    default_auto_field = 'django.db.models.BigAutoField'
-    name = 'base'
+
+    default_auto_field = "django.db.models.BigAutoField"
+    name = "base"

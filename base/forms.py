@@ -9,9 +9,10 @@ class RoomForm(ModelForm):
     Args:
         ModelForm (_type_): _description_
     """
+
     class Meta:
-        """_summary_
-        """
+        """_summary_"""
+
         model = Room
         fields = "__all__"
 
@@ -22,8 +23,9 @@ class MessageForm(ModelForm):
     Args:
         ModelForm (_type_): _description_
     """
+
     class Meta:
-        """_summary_
-        """
+        """_summary_"""
+
         model = Message
         fields = "__all__"

@@ -18,7 +18,7 @@ from .forms import RoomForm, MessageForm
 
 
 def user_profile(request, pk):
-    """ User profile page
+    """User profile page
 
     Args:
         request (_type_): _description_
