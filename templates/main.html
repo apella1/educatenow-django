@@ -1,23 +1,27 @@
-<!DOCTYPE html>
+{% load compress %}
 {% load static %}
+<!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta name="keywords" content="Study">
     <meta name="description" content="EducateNow home page">
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>EducateNow</title>
-    <link rel="stylesheet" href="{% static 'styles/main.css' %}" />
-  </head>
-  <body>
-    {% include "navbar.html" %}
-    {% if messages %}
-      <ul class="messages">
-        {% for message in messages %}<li>{{ message }}</li>{% endfor %}
-      </ul>
-    {% endif %}
-    {% block content %}
-    {% endblock content %}
-  </body>
+    {% compress css %}
+        <link rel="stylesheet" href="{% static 'src/output.css' %}"/>
+    {% endcompress %}
+</head>
+<body class="p-8">
+{% include "navbar.html" %}
+{% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li>{{ message }}</li>{% endfor %}
+    </ul>
+{% endif %}
+{% block content %}
+{% endblock content %}
+</body>
 </html>

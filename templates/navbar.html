@@ -1,14 +1,17 @@
-<a href="/">
+<a href="/" class="font-bold text-[28px]">
     <h1>EducateNow</h1>
 </a>
 <!-- we don't need a cfr_token for get method -->
-<form action="{% url 'home' %}" method="get">
-    <input type="text" name='q'  placeholder='Search Rooms...' />
-</form>
-{% if request.user.is_authenticated %}
-    <p>Hello, {{ request.user }}</p>
-    <a href=" {% url 'logout' %}">Logout</a>
-{% else %}
-    <a href=" {% url 'login' %}">Login</a>
-{% endif %}
+<section class="flex flex-col space-y-4">
+    <form action="{% url 'home' %}" method="get">
+        <input type="search" name='q' placeholder='Search Rooms...'
+               class="py-2 px-4 border border-blue-300 rounded-[16px]"/>
+    </form>
+    {% if request.user.is_authenticated %}
+        <p class="text-2xl font-semibold">Hello, {{ request.user }}</p>
+        <a href=" {% url 'logout' %}" class="text-[20px] leading-[24px]">Logout</a>
+    {% else %}
+        <a href=" {% url 'login' %}" class="text-[20px] leading-[24px]">Login</a>
+    {% endif %}
+</section>
 <hr>

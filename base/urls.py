@@ -1,10 +1,6 @@
-"""
-Base url patterns
-"""
 from django.urls import path
-from . import views
 
-# adding dynamic routing to the room view
+from . import views
 
 urlpatterns = [
     path("login", views.login_view, name="login"),

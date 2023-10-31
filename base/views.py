@@ -1,32 +1,17 @@
-"""
-Base views
-"""
-from django.shortcuts import render, redirect
-from django.http import HttpResponse
-from django.db.models import Q
-from django.contrib.auth.models import User
 from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import authenticate, login, logout
-from .models import Room, Topic, Message
+from django.contrib.auth.models import User
+from django.db.models import Q
+from django.http import HttpResponse
+from django.shortcuts import render, redirect
+
 from .forms import RoomForm, MessageForm
-
-# using function based views
-
-# user profile view
+from .models import Room, Topic, Message
 
 
 def user_profile(request, pk):
-    """User profile page
-
-    Args:
-        request (_type_): _description_
-        pk (_type_): _description_
-
-    Returns:
-        _type_: _description_
-    """
     user = User.objects.get(id=pk)
     # getting children of the room object
     rooms = user.room_set.all()
@@ -38,14 +23,6 @@ def user_profile(request, pk):
 
 
 def login_view(request):
-    """_summary_
-
-    Args:
-        request (_type_): _description_
-
-    Returns:
-        _type_: _description_
-    """
     page = "login"
     # a logged in user should not access the login page
     if request.user.is_authenticated:
@@ -74,27 +51,11 @@ def login_view(request):
 
 
 def logout_user(request):
-    """_summary_
-
-    Args:
-        request (_type_): _description_
-
-    Returns:
-        _type_: _description_
-    """
     logout(request)
     return redirect("home")
 
 
 def register_user(request):
-    """_summary_
-
-    Args:
-        request (_type_): _description_
-
-    Returns:
-        _type_: _description_
-    """
     page = "register"
     form = UserCreationForm()
 
@@ -117,14 +78,6 @@ def register_user(request):
 
 
 def home(request):
-    """_summary_
-
-    Args:
-        request (_type_): _description_
-
-    Returns:
-        _type_: _description_
-    """
     # assignment using inline if
     q = request.GET.get("q") if request.GET.get("q") is not None else ""
 
@@ -149,15 +102,6 @@ def home(request):
 
 
 def room_view(request, pk):
-    """_summary_
-
-    Args:
-        request (_type_): _description_
-        pk (_type_): _description_
-
-    Returns:
-        _type_: _description_
-    """
     room = Room.objects.get(id=pk)
 
     # Set of messages related to the room
@@ -190,14 +134,6 @@ def room_view(request, pk):
 
 @login_required(login_url="login")
 def create_room(request):
-    """_summary_
-
-    Args:
-        request (_type_): _description_
-
-    Returns:
-        _type_: _description_
-    """
     form = RoomForm()
 
     if request.method == "POST":
@@ -210,20 +146,8 @@ def create_room(request):
     return render(request, "base/room_form.html", context)
 
 
-# updating room details
-
-
 @login_required(login_url="login")
 def update_room(request, pk):
-    """_summary_
-
-    Args:
-        request (_type_): _description_
-        pk (_type_): _description_
-
-    Returns:
-        _type_: _description_
-    """
     room = Room.objects.get(id=pk)
     form = RoomForm(instance=room)
     context = {"form": form}
@@ -240,20 +164,8 @@ def update_room(request, pk):
     return render(request, "base/room_form.html", context)
 
 
-# deleting a room
-
-
 @login_required(login_url="login")
 def delete_room(request, pk):
-    """_summary_
-
-    Args:
-        request (_type_): _description_
-        pk (_type_): _description_
-
-    Returns:
-        _type_: _description_
-    """
     room = Room.objects.get(id=pk)
 
     if request.user != room.host:
@@ -266,20 +178,8 @@ def delete_room(request, pk):
     return render(request, "base/delete.html", {"obj": room})
 
 
-# editing a message
-
-
 @login_required(login_url="login")
 def update_message(request, pk):
-    """`_summary_
-
-    Args:
-        request (_type_): _description_
-        pk (_type_): _description_
-
-    Returns:
-        _type_: _description_
-    """
     comment = Message.objects.get(id=pk)
     form = MessageForm(instance=comment)
     context = {"form": form}
@@ -296,20 +196,8 @@ def update_message(request, pk):
     return render(request, "base/message_form.html", context)
 
 
-# deleting a message
-
-
 @login_required(login_url="login")
 def delete_message(request, pk):
-    """_summary_
-
-    Args:
-        request (_type_): _description_
-        pk (_type_): _description_
-
-    Returns:
-        _type_: _description_
-    """
     comment = Message.objects.get(id=pk)
 
     if request.user != comment.user:
