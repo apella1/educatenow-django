@@ -1,17 +1,27 @@
-<a href="/" class="font-bold text-[28px]">
+<section class="flex items-center justify-between py-4">
+  <a href="/" class="font-bold text-[28px]">
     <h1>EducateNow</h1>
-</a>
-<!-- we don't need a cfr_token for get method -->
-<section class="flex flex-col space-y-4">
-    <form action="{% url 'home' %}" method="get">
-        <input type="search" name='q' placeholder='Search Rooms...'
-               class="py-2 px-4 border border-blue-300 rounded-[16px]"/>
-    </form>
+  </a>
+  <!-- we don't need a cfr_token for get method -->
+  <form action="{% url 'home' %}" method="get">
+    <input
+      type="search"
+      name="q"
+      placeholder="Search Rooms..."
+      class="py-2 px-4 border border-blue-300 rounded-[16px]"
+    />
+  </form>
+  <section class="">
     {% if request.user.is_authenticated %}
-        <p class="text-2xl font-semibold">Hello, {{ request.user }}</p>
-        <a href=" {% url 'logout' %}" class="text-[20px] leading-[24px]">Logout</a>
+    <div class="flex items-center space-x-6">
+      <p class="text-[18px] font-medium">Hello, {{ request.user }}</p>
+      <a href=" {% url 'logout' %}" class="text-[20px] leading-[24px]"
+        >Logout</a
+      >
+    </div>
     {% else %}
-        <a href=" {% url 'login' %}" class="text-[20px] leading-[24px]">Login</a>
+    <a href=" {% url 'login' %}" class="text-[20px] leading-[24px]">Login</a>
     {% endif %}
+  </section>
 </section>
-<hr>
+<hr />
