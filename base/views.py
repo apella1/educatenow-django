@@ -47,7 +47,7 @@ def login_view(request):
             messages.error(request, "Credentials do not match")
 
     context = {"page": page}
-    return render(request, "base/user_auth.html", context)
+    return render(request, "base/login.html", context)
 
 
 def logout_user(request):
@@ -74,7 +74,7 @@ def register_user(request):
             messages.error(request, "An error occurred during registration")
 
     context = {"page": page, "form": form}
-    return render(request, "base/user_auth.html", context)
+    return render(request, "base/register.html", context)
 
 
 def home(request):

@@ -1,19 +1,8 @@
-"""
-Base models
-"""
-from django.db import models
 from django.contrib.auth.models import User
-
-# Create your models here.
+from django.db import models
 
 
 class Topic(models.Model):
-    """Topic model
-
-    Args:
-        models (_type_): _description_
-    """
-
     objects = models.Manager()
     name = models.CharField(max_length=200, unique=True)
 
@@ -22,13 +11,6 @@ class Topic(models.Model):
 
 
 class Room(models.Model):
-    """Room model
-
-    Args:
-        models (_type_): _description_
-
-    """
-
     objects = models.Manager()
     name = models.CharField(max_length=200, unique=True)
     host = models.ForeignKey(User, on_delete=models.CASCADE, null=False)
@@ -39,8 +21,6 @@ class Room(models.Model):
     created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        """_summary_"""
-
         ordering = ["-updated", "-created"]
 
     def __str__(self):
@@ -48,18 +28,8 @@ class Room(models.Model):
 
 
 class Message(models.Model):
-    """_summary_
-
-    Args:
-        models (_type_): _description_
-
-    Returns:
-        _type_: _description_
-    """
-
     objects = models.Manager()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-
     # creating a many-to-one relationship with Room
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
     body = models.TextField(blank=False)
@@ -67,8 +37,6 @@ class Message(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
     class Meta:
-        """_summary_"""
-
         ordering = ["-updated", "-created"]
 
     def __str__(self):
